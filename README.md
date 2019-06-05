@@ -283,4 +283,18 @@ enfin une masse de 500 tonnes en L4 du système {Terre, Lune}.
 
 Le système est censé être périodique dans le repère.
 
-<iframe height="30" width="80" src="cond0.dat"></iframe>
+```
+6.67408e-11
+
+5.972e24
+0., 0.
+0., -12.60575196
+
+7.348e22
+384400000., 0.
+0., 1024.51756569
+
+500000.
+194536102., 328853918.
+-887.25823851, 512.25878285
+```
