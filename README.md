@@ -16,7 +16,7 @@ TIPE sur la résolution numérique du problème à n corps
 Given that the general solution to the *n* body problem for *n*
 greater than 3 is a power series that converges so slowly it is
 impossible to use, an approximate solution that is both reliable and
-efficient is reaquired. That is what we aimed at finding in this TIPE.
+efficient is required. That is what we aimed at finding in this TIPE.
 
 ## Position du problème
 
@@ -26,23 +26,23 @@ cas particuliers du problème à *n* corps, nommément pour *n* = 2 et *n*
 = 3, et c'est Sundman qui, en 1909, donne une solution exacte,
 générale, du problème à 3 corps. Le problème de cette solution est que
 c'est une série entière, qui converge extrêmement lentement (plus de
-10⁸⁰⁰⁰⁰⁰⁰ termes nécessaires pour avoir un décimale correcte dans un
+10⁸⁰⁰⁰⁰⁰⁰ termes nécessaires pour avoir une décimale correcte dans un
 cas de Lagrange).
 
-Une méthode numérique efficace et sure est donc nécessaire afin de
+Une méthode numérique efficace et sûre est donc nécessaire afin de
 prévoir les mouvements des objets du système solaire, des étoiles dans
 leurs galaxies, des galaxies dans leurs amas, *et caetera*.
 
 La difficulté du problème à *n* corps réside dans le calcul des
-accélération. Il est facile de voir qu'un calcul naïf serait en
+accélérations. Il est facile de voir qu'un calcul naïf serait en
 *O(n²)* : inutilisable dès que l'on dépasse 1000 corps.
 
-Nous nous sommes concentrés sur la méthodes de Barnes-Hut, à base
-d'arbre, qui permet de réduire le nombre de forces à calculer, pour
+Nous nous sommes concentrés sur la méthode de Barnes-Hut, à base
+d'arbres, qui permet de réduire le nombre de forces à calculer, pour
 aboutir à une complexité temporelle *O(n* log *n)*
 
 Une fois les accélérations calculées à un instant donné, il faut
-intégrer par une méthode d'intégration numérique. L'on étudiera cette
+intégrer par une méthode d'intégration numérique. On étudiera cette
 partie par la suite.
 
 ## Calcul des accélérations
@@ -79,7 +79,7 @@ savoir si un corps est loin d'autres, et ainsi de réduire le nombre
 de forces à calculer.
 
 Le calcul de l'accélération d'un corps se fait récursivement : pour un
-nœud, on calcul la rapport de la largeur de la case qu'il représente
+nœud, on calcule le rapport de la largeur de la case qu'il représente
 sur la distance du corps par rapport au centre de la cellule. Si ce
 rapport est plus grand qu'un paramètre *θ* donné (environ 1), on se
 rappelle récursivement sur les fils. Sinon, (ou si le nœud est une
@@ -147,7 +147,7 @@ par la méthode de Barnes-Hut.
 
 Maintenant qu'on dispose d'une méthode efficace et correcte pour
 calculer les accélérations pour des positions données, on peut
-utiliser des méthodes d'intégration numériques classiques.
+utiliser des méthodes d'intégration numérique classiques.
 
 ## Intégration numérique
 
@@ -159,7 +159,7 @@ est stable (l'erreur sur la solution est majorée par une constante
 multipliée par l'erreur sur la condition initiale) pour les polynômes
 de degré au plus 1. Cela implique également que l'erreur sur la
 solution est en *O(h)*, où *h* est le pas de temps. Nous verrons que
-cela entraîne d'importantes erreurs d'approximations, surtout sur des
+cela entraîne d'importantes erreurs d'approximation, surtout sur des
 équations raides (où alors elle n'est plus stable).
 
 Nous allons ensuite implémenter la méthode de Runge-Kutta dite
@@ -202,7 +202,7 @@ depuis ce dossier.
 Ce programme permet d'afficher un graphe de la trajectoire
 de corps (en 2 dimensions), à partir de conditions initiales
 données, avec une méthode d'intégration donnée, une méthode de
-calcul des accélérations données, une durée et un temps donné.
+calcul des accélérations donnée, une durée et un temps donné.
 
 Syntaxe :
 
@@ -224,7 +224,7 @@ le paramètre theta, un flottant, 1.0 par défaut
 i est un entier, indique au programme de lire le fichier
 "condi.dat" pour les conditions initiales. Trois fichiers
 sont fournis : "cond0.dat", "cond1.dat" et
-"cond2.dat". Se référer au README.md pour le formattage des
+"cond2.dat". Se référer au README.md pour le formatage des
 fichiers de conditions initiales.
 
 t est la durée, un flottant
@@ -240,3 +240,47 @@ corps k
 
 "plot_cond_ini_i.plot", un fichier lisible par gnuplot
 par exemple, permettant de tracer les trajectoires.
+
+
+### Formatage des fichiers de conditions initiales
+
+
+Comme dit plus haut, un tel fichier doit se nommer "condi.dat", où "i"
+n'est pas la lettre mais un entier, non déjà utilisé, comme indiqué
+dans la partie précédente
+
+La première ligne est un flottant renseignant la valeur à utiliser
+pour *G* la constante de gravitaion universelle. Pour les exemples
+réels, 6.67408e-11. Il faut ensuite laisser une ligne blanche.
+
+La suite est composée de blocs de quatre lignes chacun désignant un
+corps, à l'exception du dernier bloc n'en comprenant que trois :
+
+```
+m
+x, y
+vx, vy
+
+```
+
+- La première ligne est un flottant désignant la masse du corps,
+
+- La deuxième ligne, comprenant deux flottants séparés par une virgule
+  puis une espace, renseigne la position initiales du corps en
+  coordonées cartésiennes,
+
+- La troisième ligne, comprenant deux flottants séparés par une virgule
+  puis une espace, renseigne la vitesse initiale du corps en
+  coordonées cartésiennes,
+
+- La quatrième et dernière ligne est blanche. Cette quatrième ligne
+  est de préférence à supprimer pour le dernier bloc.
+
+Voici un exemple : "cond0.dat", fourni dans le dépôt. Ces conditions
+initiales représentent la Terre à l'origine du repère, la Lune en
+orbite autour de la Terre, initialement sur l'axe des abscisses, et
+enfin une masse de 500 tonnes en L4 du système {Terre, Lune}.
+
+Le système est censé être périodique dans le repère.
+
+<iframe height="30" width="80" src="cond0.dat"></iframe>
