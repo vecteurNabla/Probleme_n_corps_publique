@@ -10,6 +10,7 @@ TIPE sur la résolution numérique du problème à n corps
    2. Méthode de Barnes-Hut
 4. Intégration Numérique
 5. Utilisation du programme
+6. Formatage des fichiers de conditions initiales
 
 ## Abstract
 
@@ -242,7 +243,7 @@ corps k
 par exemple, permettant de tracer les trajectoires.
 
 
-### Formatage des fichiers de conditions initiales
+## Formatage des fichiers de conditions initiales
 
 
 Comme dit plus haut, un tel fichier doit se nommer "condi.dat", où "i"
