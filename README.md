@@ -274,7 +274,8 @@ vx, vy
   coordonées cartésiennes,
 
 - La quatrième et dernière ligne est blanche. Cette quatrième ligne
-  est de préférence à supprimer pour le dernier bloc.
+  est de préférence à supprimer pour le dernier bloc (mais ça ne
+  devrait pas poser de problème).
 
 Voici un exemple : "cond0.dat", fourni dans le dépôt. Ces conditions
 initiales représentent la Terre à l'origine du repère, la Lune en
