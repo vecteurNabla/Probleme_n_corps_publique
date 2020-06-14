@@ -1,14 +1,14 @@
-plot : tipe.cmx plot.cmx
-	ocamlopt -o plot tipe.cmx plot.cmx
+plot : tipe.cmo plot.cmo
+	ocamlc -o plot tipe.cmo plot.cmo
 
-tipe.cmx : tipe.mli tipe.ml
+tipe.cmo : tipe.mli tipe.ml
 	ocamlc -c tipe.mli
-	ocamlopt -c tipe.ml
+	ocamlc -c tipe.ml
 
-plot.cmx : plot.ml
-	ocamlopt -c plot.ml
+plot.cmo : plot.ml
+	ocamlc -c plot.ml
 
 .PHONY : clean
 
 clean :
-	rm tipe_tests tipe.cmx tipe_tests.cmx tipe_rand_tests tipe_rand_tests.cmx
+	rm tipe_tests tipe.cmo tipe_tests.cmo tipe_rand_tests tipe_rand_tests.cmo
